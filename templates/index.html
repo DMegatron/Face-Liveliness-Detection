@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Feed</title>
+    <script>
+        function updateResults() {
+            fetch('/finger_count')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('finger_count').textContent = 'Fingers: ' + data.finger_count;
+                });
+
+            fetch('/fingers_followed_by_zero')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('fingers_followed_by_zero').textContent = 'Fingers followed by zero: ' + data.fingers_followed_by_zero;
+                });
+        }
+
+        setInterval(updateResults, 1000); // Update results every second
+    </script>
+</head>
+<body>
+    <h1>Video Feed</h1>
+    <img src="{{ url_for('video_feed') }}" width="640" height="480">
+    <div id="finger_count">Fingers: </div>
+    <div id="fingers_followed_by_zero">Fingers followed by zero: </div>
+</body>
+</html>
